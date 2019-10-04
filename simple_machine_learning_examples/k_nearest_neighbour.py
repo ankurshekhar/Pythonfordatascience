@@ -21,6 +21,9 @@ print (Gender_test)
 #from sklearn.neighbors import KNeighborsClassifier
 from sklearn.neighbors import KNeighborsClassifier
 
+#Import metrics model to check the accuracy
+from sklearn import metrics     
+
 #Initiate a new variable of kNearestNeighbour class
 clf=KNeighborsClassifier()
 clf.fit(BodyMeasurements,Gender)
