@@ -10,5 +10,5 @@ Gender=[['Male'],['Female'],['Male'],['Female'],['Male'],['Female'],['Male'],['F
 clf=tree.DecisionTreeClassifier()
 
 clf=clf.fit(BodyMeasurements,Gender)
-prediction=clf.predict([[110,32,78]])
+prediction=clf.predict([[210,70,550]])
 print (prediction)
