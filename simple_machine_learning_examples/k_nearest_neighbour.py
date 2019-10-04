@@ -21,11 +21,37 @@ print (Gender_test)
 #from sklearn.neighbors import KNeighborsClassifier
 from sklearn.neighbors import KNeighborsClassifier
 
-#Import metrics model to check the accuracy
-from sklearn import metrics     
+#Import metrics model to check the accuracy. Not sure about how and why of this, need to come back later
+from sklearn import metrics   
+import numpy as np  
+#Try running from k=1 through 9 and record testing accuracy
+k_range=range(1,9)
+scores={}
+scores_list=[]
 
-#Initiate a new variable of kNearestNeighbour class
-clf=KNeighborsClassifier()
-clf.fit(BodyMeasurements,Gender)
-prediction=clf.predict([[210,70,550]])
-print (prediction)
+for k in k_range:
+    knn=KNeighborsClassifier(n_neighbors=k)
+    knn.fit(BodyMeasurements_train,np.ravel(Gender_train))
+    prediction=knn.predict(BodyMeasurements_test)
+    #print (prediction)
+    scores[k]=metrics.accuracy_score(Gender_test,prediction)
+    scores_list.append(metrics.accuracy_score(Gender_test,prediction))
+
+print (scores_list)
+
+'exec (%matplotlib inline)'
+import matplotlib.pyplot as plt
+
+#plot the relationship between K and the testing accuracy
+plt.plot(k_range,scores_list)
+plt.xlabel('Value of K for KNN')
+plt.ylabel('Testing Accuracy')
+plt.show(block=False)
+input('press <ENTER> to continue')
+
+#Here k was selected as 7 as accuracy according to the graph generated was 100% for k=7. Need to try with large datasets.
+knn=KNeighborsClassifier(n_neighbors=7)
+knn.fit(BodyMeasurements,Gender)
+
+Gender_Predict=knn.predict([[210,70,550]])
+print (Gender_Predict)
